@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.todolist.recyclerview
+package com.example.todoapp.ui
 
 import android.graphics.Rect
 import android.view.View

@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.todolist
+package com.example.todoapp.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,9 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentTodoListBinding
-import com.example.todoapp.ui.todolist.actions.TodoListUiEvent
-import com.example.todoapp.ui.todolist.recyclerview.PreviewOffsetTodoItemDecoration
-import com.example.todoapp.ui.todolist.recyclerview.TodoItemsAdapter
 import com.example.todoapp.utils.generateRandomItemId
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
@@ -88,10 +85,10 @@ class TodoListFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.uiEvent.collectLatest {
                 when (it) {
-                    is TodoListUiEvent.NavigateToEditTodoItem -> {
+                    is TodoListNavigations.NavigateToEditTodoItem -> {
                         navigateToEditTodoItem(it.id)
                     }
-                    is TodoListUiEvent.NavigateToNewTodoItem -> {
+                    is TodoListNavigations.NavigateToNewTodoItem -> {
                         navigateToNewTodoItem()
                     }
                 }

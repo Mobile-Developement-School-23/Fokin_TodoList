@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/todoListFragment"
-        android:name="com.example.todoapp.ui.todolist.TodoListFragment"
+        android:name="com.example.todoapp.ui.TodoListFragment"
         android:label="TodoListFragment" >
         <action
             android:id="@+id/action_todoListFragment_to_addTodoItemFragment2"

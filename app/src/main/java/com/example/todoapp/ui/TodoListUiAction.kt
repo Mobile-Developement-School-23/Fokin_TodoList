@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.todolist.actions
+package com.example.todoapp.ui
 
 import com.example.todoapp.TodoItem
 

@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.todolist.recyclerview
+package com.example.todoapp.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.databinding.TodoitemPreviewBinding
 import com.example.todoapp.TodoItem
-import com.example.todoapp.ui.todolist.actions.TodoListUiAction
 
 class TodoItemsAdapter(private val onUiAction: (TodoListUiAction) -> Unit
 ) : RecyclerView.Adapter<TodoItemViewHolder>() {

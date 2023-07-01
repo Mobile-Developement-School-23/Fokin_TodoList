@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.todolist.recyclerview
+package com.example.todoapp.ui
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.todoapp.TodoItem

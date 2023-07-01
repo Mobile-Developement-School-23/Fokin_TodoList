@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_item_high"
+        android:title="@string/importance_urgent" />
+    <item
+        android:id="@+id/menu_item_medium"
+        android:title="@string/importance_normal" />
+    <item
+        android:id="@+id/menu_item_low"
+        android:title="@string/importance_low" />
+</menu>

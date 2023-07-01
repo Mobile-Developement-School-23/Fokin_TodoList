@@ -97,16 +97,16 @@ class TodoListFragment : Fragment() {
     }
 
     private fun setupRecycler() {
-        val todoItemsAdapter = TodoItemsAdapter(viewModel::onUiAction)
+        val todoItemAdapter = TodoItemAdapter(viewModel::onUiAction)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        binding.todoItemsList.adapter = todoItemsAdapter
+        binding.todoItemsList.adapter = todoItemAdapter
         binding.todoItemsList.layoutManager = layoutManager
-        binding.todoItemsList.addItemDecoration(PreviewOffsetTodoItemDecoration(bottomOffset = 16f.toPx.toInt()))
+        binding.todoItemsList.addItemDecoration(TodoItemDecoration(bottomOffset = 16f.toPx.toInt()))
 
         lifecycleScope.launch {
             viewModel.getTodoItems().collectLatest {
-                todoItemsAdapter.setData(it)
+                todoItemAdapter.setData(it)
             }
         }
     }

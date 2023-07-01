@@ -18,11 +18,11 @@ class TodoListViewModel : ViewModel() {
     val errorListLiveData: LiveData<Boolean> = todoItemsRepository.errorListLiveData
     val errorItemLiveData: LiveData<Boolean> = todoItemsRepository.errorItemLiveData
 
-    fun onUiAction(action: TodoListUiAction) {
+    fun onUiAction(action: TodoListActions) {
         when (action) {
-            is TodoListUiAction.EditTodoItem -> editTodoItem(action.todoItem)
-            is TodoListUiAction.UpdateTodoItem -> updateTodoItem(action.todoItem)
-            is TodoListUiAction.RemoveTodoItem -> removeTodoItem(action.todoItem)
+            is TodoListActions.EditTodoItem -> editTodoItem(action.todoItem)
+            is TodoListActions.UpdateTodoItem -> updateTodoItem(action.todoItem)
+            is TodoListActions.RemoveTodoItem -> removeTodoItem(action.todoItem)
         }
     }
 

@@ -6,7 +6,6 @@ import com.example.todoapp.Importance
 import com.example.todoapp.R
 import com.example.todoapp.databinding.TodoitemPreviewBinding
 import com.example.todoapp.TodoItem
-import com.example.todoapp.ui.TodoListUiAction
 import com.example.todoapp.utils.formatDate
 
 class TodoItemViewHolder(binding: TodoitemPreviewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -16,7 +15,7 @@ class TodoItemViewHolder(binding: TodoitemPreviewBinding) : RecyclerView.ViewHol
     private val deadline = binding.deadlineText
     private val priorityIcon = binding.priorityImageView
 
-    fun onBind(todoItem: TodoItem, onUiAction: (TodoListUiAction) -> Unit) {
+    fun onBind(todoItem: TodoItem, onUiAction: (TodoListActions) -> Unit) {
         this.todoItem = todoItem
         checkBox.isChecked = todoItem.isDone
         todoText.text = todoItem.text
@@ -39,15 +38,15 @@ class TodoItemViewHolder(binding: TodoitemPreviewBinding) : RecyclerView.ViewHol
         setupDiffCallback(onUiAction)
     }
 
-    private fun setupDiffCallback(onUiAction: (TodoListUiAction) -> Unit) {
+    private fun setupDiffCallback(onUiAction: (TodoListActions) -> Unit) {
         checkBox.setOnCheckedChangeListener { _, isChecked ->
             if (todoItem.isDone != isChecked) {
                 val newItem = todoItem.copy(isDone = isChecked)
-                onUiAction(TodoListUiAction.UpdateTodoItem(newItem))
+                onUiAction(TodoListActions.UpdateTodoItem(newItem))
             }
         }
         todoText.setOnClickListener {
-            onUiAction(TodoListUiAction.EditTodoItem(todoItem))
+            onUiAction(TodoListActions.EditTodoItem(todoItem))
         }
     }
 }

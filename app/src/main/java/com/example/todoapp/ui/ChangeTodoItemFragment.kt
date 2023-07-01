@@ -23,11 +23,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-class AddTodoItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+class ChangeTodoItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private var _binding: FragmentAddTodoItemBinding? = null
     private val binding get() = _binding!!
-    private val args by navArgs<AddTodoItemFragmentArgs>()
-    private val viewModel: AddTodoItemViewModel by viewModels()
+    private val args by navArgs<ChangeTodoItemFragmentArgs>()
+    private val viewModel: ChangeTodoItemViewModel by viewModels()
 
     private lateinit var calendar: Calendar
 
@@ -69,7 +69,7 @@ class AddTodoItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         lifecycleScope.launch {
             viewModel.uiEvent.collectLatest {
                 when (it) {
-                    AddTodoItemUiEvent.NavigateUp -> backToTodoList()
+                    ChangeTodoItemNavigations.NavigateUp -> backToTodoList()
                 }
             }
         }

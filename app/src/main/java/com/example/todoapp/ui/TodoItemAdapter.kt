@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.databinding.TodoitemPreviewBinding
 import com.example.todoapp.TodoItem
 
-class TodoItemsAdapter(private val onUiAction: (TodoListUiAction) -> Unit
+class TodoItemAdapter(private val onUiAction: (TodoListActions) -> Unit
 ) : RecyclerView.Adapter<TodoItemViewHolder>() {
     private var oldTodoItemsList = emptyList<TodoItem>()
 
@@ -28,7 +28,7 @@ class TodoItemsAdapter(private val onUiAction: (TodoListUiAction) -> Unit
     }
 
     fun setData(newTodoItemsList: List<TodoItem>) {
-        val diffUtil = CustomDiffUtil(oldTodoItemsList, newTodoItemsList)
+        val diffUtil = MyDiffUtil(oldTodoItemsList, newTodoItemsList)
         val diffResult = DiffUtil.calculateDiff(diffUtil)
         oldTodoItemsList = newTodoItemsList
         diffResult.dispatchUpdatesTo(this)

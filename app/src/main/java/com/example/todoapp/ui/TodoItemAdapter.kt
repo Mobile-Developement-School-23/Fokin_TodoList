@@ -6,17 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.databinding.TodoitemPreviewBinding
 import com.example.todoapp.data.TodoItem
+import com.example.todoapp.utils.TODO_ITEM_ADAPTER_PREVIEW_TYPE
 
-class TodoItemAdapter(private val onUiAction: (TodoListActions) -> Unit
-) : RecyclerView.Adapter<TodoItemViewHolder>() {
+class TodoItemAdapter(private val onUiAction: (TodoListActions) -> Unit) : RecyclerView.Adapter<TodoItemViewHolder>() {
     private var oldTodoItemsList = emptyList<TodoItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoItemViewHolder {
         return when (viewType) {
-            TODO_ITEM_PREVIEW_TYPE -> TodoItemViewHolder(
+            TODO_ITEM_ADAPTER_PREVIEW_TYPE -> TodoItemViewHolder(
                 TodoitemPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             )
-            else -> throw java.lang.IllegalArgumentException("viewType is invalid")
+            else -> throw java.lang.IllegalArgumentException("something wrong with view type")
         }
     }
 
@@ -32,9 +32,5 @@ class TodoItemAdapter(private val onUiAction: (TodoListActions) -> Unit
         val diffResult = DiffUtil.calculateDiff(diffUtil)
         oldTodoItemsList = newTodoItemsList
         diffResult.dispatchUpdatesTo(this)
-    }
-
-    companion object {
-        private const val TODO_ITEM_PREVIEW_TYPE = 0
     }
 }

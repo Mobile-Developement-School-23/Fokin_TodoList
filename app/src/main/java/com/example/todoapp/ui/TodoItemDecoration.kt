@@ -5,10 +5,10 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 class TodoItemDecoration (
-    private val leftOffset: Int = 0,
-    private val topOffset: Int = 0,
-    private val rightOffset: Int = 0,
-    private val bottomOffset: Int = 0
+    private val leftOffset: Int = 5,
+    private val topOffset: Int = 5,
+    private val rightOffset: Int = 5,
+    private val bottomOffset: Int = 5
 ) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(

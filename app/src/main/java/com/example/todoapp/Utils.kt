@@ -17,6 +17,8 @@ const val CONNECT_TIMEOUT = 120L
 const val READ_TIMEOUT = 120L
 const val WRITE_TIMEOUT = 90L
 const val REPEAT_INTERVAL = 8L
+const val RETRY_COUNT = 3
+const val TODO_ITEM_ADAPTER_PREVIEW_TYPE = 0
 fun generateRandomItemId(): String =
     SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault()).format(Date())
 

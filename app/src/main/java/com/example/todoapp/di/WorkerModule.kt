@@ -12,10 +12,7 @@ interface WorkerModule {
     companion object {
         @AppScope
         @Provides
-        fun provideWorkManager(
-            workManager: WorkManager,
-            connectivityManager: ConnectivityManager
-        ): MyWorkManager {
+        fun provideWorkManager(workManager: WorkManager, connectivityManager: ConnectivityManager): MyWorkManager {
             return MyWorkManager(workManager, connectivityManager)
         }
         @AppScope

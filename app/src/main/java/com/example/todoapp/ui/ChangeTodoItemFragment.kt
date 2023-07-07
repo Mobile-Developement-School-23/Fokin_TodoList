@@ -80,50 +80,6 @@ class ChangeTodoItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         _binding = null
     }
 
-    private fun setUiEventsListener() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.uiEvent
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-                .collectLatest {
-                    when (it) {
-                        ChangeTodoItemNavigations.NavigateUp -> findNavController().navigateUp()
-                    }
-                }
-        }
-    }
-
-    private fun setDataCollectors() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.text
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-                .collect {
-                    binding.textOfTodoItem.setText(it)
-                }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.importance
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-                .collect {
-                    binding.importanceValue.text = it.getLocalizedName(requireContext())
-                }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.deadline
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-                .collect {
-                    binding.deadlineDate.text = formatDate(it)
-                }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.isDeadlineSet
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-                .collect {
-                    binding.switchDeadline.isChecked = it
-                    binding.deadlineDate.text = if (it) formatDate(viewModel.deadline.value) else ""
-                }
-        }
-    }
-
     private fun showPopUpMenu() {
         binding.importance.setOnClickListener { view ->
             val popupMenu = PopupMenu(requireContext(), view)
@@ -172,5 +128,51 @@ class ChangeTodoItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun saveButtonState(text: Editable?) {
         binding.saveButton.isEnabled = !text.isNullOrBlank()
     }
+
+    private fun setUiEventsListener() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.navigation
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+                .collectLatest {
+                    when (it) {
+                        ChangeTodoItemNavigations.NavigateUp -> findNavController().navigateUp()
+                    }
+                }
+        }
+    }
+
+    private fun setDataCollectors() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.text
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+                .collect {
+                    binding.textOfTodoItem.setText(it)
+                }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.importance
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+                .collect {
+                    binding.importanceValue.text = it.getLocalizedName(requireContext())
+                }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.deadline
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+                .collect {
+                    binding.deadlineDate.text = formatDate(it)
+                }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isDeadlineSet
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+                .collect {
+                    binding.switchDeadline.isChecked = it
+                    binding.deadlineDate.text = if (it) formatDate(viewModel.deadline.value) else ""
+                }
+        }
+    }
+
+
 
 }

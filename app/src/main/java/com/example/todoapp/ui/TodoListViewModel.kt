@@ -14,8 +14,8 @@ import kotlinx.coroutines.launch
 class TodoListViewModel(
     private val repository: TodoItemsRepository
 ) : ViewModel() {
-    private val _uiEvent = Channel<TodoListNavigations>()
-    val uiEvent = _uiEvent.receiveAsFlow()
+    private val _navigation = Channel<TodoListNavigations>()
+    val navigation = _navigation.receiveAsFlow()
 
     fun onUiAction(action: TodoListActions) {
         when (action) {
@@ -39,7 +39,7 @@ class TodoListViewModel(
 
     private fun editTodoItem(todoItem: TodoItem) {
         viewModelScope.launch {
-            _uiEvent.send(TodoListNavigations.NavigateToEditTodoItem(todoItem.id))
+            _navigation.send(TodoListNavigations.NavigateToEditTodoItem(todoItem.id))
         }
     }
 

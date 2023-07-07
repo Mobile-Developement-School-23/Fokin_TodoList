@@ -1,5 +1,3 @@
 package com.example.todoapp.data.network
 
-data class ItemContainer(
-    val element: TodoItemFromServer
-)
+data class ItemContainer(val element: TodoItemFromServer)

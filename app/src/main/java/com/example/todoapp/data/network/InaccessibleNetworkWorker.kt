@@ -7,8 +7,7 @@ import com.example.todoapp.App
 import com.example.todoapp.data.TodoItemsRepository
 import javax.inject.Inject
 
-class InaccessibleNetworkWorker(appContext: Context, workerParams: WorkerParameters)
-    : CoroutineWorker(appContext, workerParams) {
+class InaccessibleNetworkWorker(appContext: Context, workerParams: WorkerParameters) : CoroutineWorker(appContext, workerParams) {
     @Inject
     lateinit var repository: TodoItemsRepository
 

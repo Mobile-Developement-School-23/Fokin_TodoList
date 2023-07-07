@@ -102,7 +102,7 @@ class TodoListFragment : Fragment() {
 
     private fun setupUiEventsListener() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.uiEvent
+            viewModel.navigation
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collectLatest {
                     when (it) {

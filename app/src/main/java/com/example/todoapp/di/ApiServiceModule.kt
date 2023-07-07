@@ -21,10 +21,7 @@ interface ApiServiceModule {
     companion object {
         @AppScope
         @Provides
-        fun provideApiService(
-            okHttpClient: OkHttpClient,
-            gsonConverterFactory: GsonConverterFactory
-        ): Service {
+        fun provideApiService(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Service {
             return Retrofit.Builder()
                 .baseUrl(URL)
                 .client(okHttpClient)

@@ -16,15 +16,13 @@ import kotlinx.coroutines.launch
 import java.util.Date
 
 @FragmentScope
-class ChangeTodoItemViewModel(
-    private val repository: TodoItemsRepository
-) : ViewModel() {
+class ChangeTodoItemViewModel(private val repository: TodoItemsRepository) : ViewModel() {
     private var oldTodoItem: TodoItem? = null
     private lateinit var id: String
     private var isNewItem: Boolean = true
 
-    private val _uiEvent = Channel<ChangeTodoItemNavigations>()
-    val uiEvent = _uiEvent.receiveAsFlow()
+    private val _navigation = Channel<ChangeTodoItemNavigations>()
+    val navigation = _navigation.receiveAsFlow()
 
     private val _text = MutableStateFlow("")
     val text = _text.asStateFlow()
@@ -90,7 +88,7 @@ class ChangeTodoItemViewModel(
         viewModelScope.launch {
             if (isNewItem) repository.addTodoItem(todoItem)
             else repository.updateTodoItem(todoItem)
-            _uiEvent.send(ChangeTodoItemNavigations.NavigateUp)
+            _navigation.send(ChangeTodoItemNavigations.NavigateUp)
         }
     }
 
@@ -98,7 +96,7 @@ class ChangeTodoItemViewModel(
         viewModelScope.launch {
             if (!isNewItem)
                 oldTodoItem?.let { repository.removeTodoItem(id) }
-            _uiEvent.send(ChangeTodoItemNavigations.NavigateUp)
+            _navigation.send(ChangeTodoItemNavigations.NavigateUp)
         }
     }
 }

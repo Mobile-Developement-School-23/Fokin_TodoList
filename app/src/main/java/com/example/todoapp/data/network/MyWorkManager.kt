@@ -15,10 +15,7 @@ import com.example.todoapp.utils.REPEAT_INTERVAL
 import java.util.concurrent.TimeUnit
 
 @AppScope
-class MyWorkManager(
-    private val workManager: WorkManager,
-    private val connectivityManager: ConnectivityManager
-) {
+class MyWorkManager(private val workManager: WorkManager, private val connectivityManager: ConnectivityManager) {
 
     fun setWorkers() {
         refreshPeriodicWork()

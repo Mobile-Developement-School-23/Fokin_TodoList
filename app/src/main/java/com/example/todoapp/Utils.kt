@@ -1,13 +1,22 @@
 package com.example.todoapp.utils
 
-import com.example.todoapp.network.TodoItemServer
-import com.example.todoapp.Importance
-import com.example.todoapp.TodoItem
-import com.example.todoapp.db.Todo
+import android.content.res.Resources
+import android.util.TypedValue
+import com.example.todoapp.data.network.TodoItemFromServer
+import com.example.todoapp.data.Importance
+import com.example.todoapp.data.TodoItem
+import com.example.todoapp.data.db.Todo
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+
+const val URL = "https://beta.mrdekk.ru/todobackend/"
+const val TOKEN = "Bearer trinchera"
+const val CONNECT_TIMEOUT = 120L
+const val READ_TIMEOUT = 120L
+const val WRITE_TIMEOUT = 90L
+const val REPEAT_INTERVAL = 8L
 fun generateRandomItemId(): String =
     SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault()).format(Date())
 
@@ -40,8 +49,8 @@ fun getImportanceId(importance: Importance): Int {
     }
 }
 
-fun toTodoItemServer(todoItem: TodoItem): TodoItemServer {
-    return TodoItemServer(
+fun toTodoItemServer(todoItem: TodoItem): TodoItemFromServer {
+    return TodoItemFromServer(
         id = todoItem.id,
         text = todoItem.text,
         importance = importanceToString(todoItem.importance),
@@ -64,3 +73,10 @@ fun createTodo(todoItem: TodoItem): Todo {
         changedAt = todoItem.modificationDate
     )
 }
+
+val Number.toPx
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        Resources.getSystem().displayMetrics
+    )

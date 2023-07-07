@@ -1,7 +1,7 @@
 package com.example.todoapp.ui
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.todoapp.TodoItem
+import com.example.todoapp.data.TodoItem
 
 class MyDiffUtil(
     private val oldList: List<TodoItem>,

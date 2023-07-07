@@ -2,10 +2,10 @@ package com.example.todoapp.ui
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.Importance
+import com.example.todoapp.data.Importance
 import com.example.todoapp.R
 import com.example.todoapp.databinding.TodoitemPreviewBinding
-import com.example.todoapp.TodoItem
+import com.example.todoapp.data.TodoItem
 import com.example.todoapp.utils.formatDate
 
 class TodoItemViewHolder(binding: TodoitemPreviewBinding) : RecyclerView.ViewHolder(binding.root) {

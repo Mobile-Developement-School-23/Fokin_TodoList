@@ -1,6 +1,6 @@
 package com.example.todoapp.ui
 
-import com.example.todoapp.TodoItem
+import com.example.todoapp.data.TodoItem
 
 sealed class TodoListActions {
     data class EditTodoItem(val todoItem: TodoItem) : TodoListActions()

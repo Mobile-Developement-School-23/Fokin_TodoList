@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoapp.databinding.TodoitemPreviewBinding
-import com.example.todoapp.TodoItem
+import com.example.todoapp.data.TodoItem
 
 class TodoItemAdapter(private val onUiAction: (TodoListActions) -> Unit
 ) : RecyclerView.Adapter<TodoItemViewHolder>() {

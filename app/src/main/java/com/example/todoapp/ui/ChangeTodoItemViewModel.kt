@@ -2,9 +2,10 @@ package com.example.todoapp.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todoapp.Di
-import com.example.todoapp.Importance
-import com.example.todoapp.TodoItem
+import com.example.todoapp.data.Importance
+import com.example.todoapp.data.TodoItem
+import com.example.todoapp.data.TodoItemsRepository
+import com.example.todoapp.di.FragmentScope
 import com.example.todoapp.utils.dateToUnix
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,9 +15,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Date
 
-class ChangeTodoItemViewModel : ViewModel() {
-    private val todoItemsRepository = Di.basedRepository
-
+@FragmentScope
+class ChangeTodoItemViewModel(
+    private val repository: TodoItemsRepository
+) : ViewModel() {
     private var oldTodoItem: TodoItem? = null
     private lateinit var id: String
     private var isNewItem: Boolean = true
@@ -36,10 +38,10 @@ class ChangeTodoItemViewModel : ViewModel() {
     private val _isDeadlineSet = MutableStateFlow(false)
     val isDeadlineSet = _isDeadlineSet.asStateFlow()
 
-    fun findTodoItem(args: com.example.todoapp.ui.ChangeTodoItemFragmentArgs) {
+    fun findTodoItem(args: ChangeTodoItemFragmentArgs) {
         viewModelScope.launch {
             id = args.id
-            todoItemsRepository.getTodoItem(id)?.let { todoItem ->
+            repository.getTodoItem(id)?.let { todoItem ->
                 oldTodoItem = todoItem
                 isNewItem = false
                 updateText(todoItem.text)
@@ -86,8 +88,8 @@ class ChangeTodoItemViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            if (isNewItem) todoItemsRepository.addTodoItem(todoItem)
-            else todoItemsRepository.updateTodoItem(todoItem)
+            if (isNewItem) repository.addTodoItem(todoItem)
+            else repository.updateTodoItem(todoItem)
             _uiEvent.send(ChangeTodoItemNavigations.NavigateUp)
         }
     }
@@ -95,7 +97,7 @@ class ChangeTodoItemViewModel : ViewModel() {
     fun removeTodoItem() {
         viewModelScope.launch {
             if (!isNewItem)
-                oldTodoItem?.let { todoItemsRepository.removeTodoItem(id) }
+                oldTodoItem?.let { repository.removeTodoItem(id) }
             _uiEvent.send(ChangeTodoItemNavigations.NavigateUp)
         }
     }

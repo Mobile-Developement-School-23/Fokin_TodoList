@@ -3,20 +3,19 @@ package com.example.todoapp.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todoapp.Di
-import com.example.todoapp.TodoItem
+import com.example.todoapp.data.TodoItem
+import com.example.todoapp.data.TodoItemsRepository
+import com.example.todoapp.di.FragmentScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class TodoListViewModel : ViewModel() {
-    private val todoItemsRepository = Di.basedRepository
-
+@FragmentScope
+class TodoListViewModel(
+    private val repository: TodoItemsRepository
+) : ViewModel() {
     private val _uiEvent = Channel<TodoListNavigations>()
     val uiEvent = _uiEvent.receiveAsFlow()
-
-    val errorListLiveData: LiveData<Boolean> = todoItemsRepository.errorListLiveData
-    val errorItemLiveData: LiveData<Boolean> = todoItemsRepository.errorItemLiveData
 
     fun onUiAction(action: TodoListActions) {
         when (action) {
@@ -26,11 +25,15 @@ class TodoListViewModel : ViewModel() {
         }
     }
 
-    suspend fun getTodoItems() = todoItemsRepository.todoItems()
+    suspend fun getTodoItems() = repository.todoItems()
+
+    fun errorListLiveData(): LiveData<Boolean> = repository.errorListLiveData()
+
+    fun errorItemLiveData(): LiveData<Boolean> = repository.errorItemLiveData()
 
     fun reloadData() {
         viewModelScope.launch {
-            todoItemsRepository.reloadData()
+            repository.reloadData()
         }
     }
 
@@ -42,13 +45,13 @@ class TodoListViewModel : ViewModel() {
 
     private fun updateTodoItem(todoItem: TodoItem) {
         viewModelScope.launch {
-            todoItemsRepository.updateTodoItem(todoItem)
+            repository.updateTodoItem(todoItem)
         }
     }
 
     private fun removeTodoItem(todoItem: TodoItem) {
         viewModelScope.launch {
-            todoItemsRepository.removeTodoItem(todoItem.id)
+            repository.removeTodoItem(todoItem.id)
         }
     }
 }

@@ -125,7 +125,7 @@ class TodoListFragment : Fragment() {
         binding.todoItemsList.addItemDecoration(todoItemDecoration)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getUnfinishedTodoItems()
+            viewModel.getTodoItems()
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collectLatest {
                     todoItemsAdapter.setData(it)

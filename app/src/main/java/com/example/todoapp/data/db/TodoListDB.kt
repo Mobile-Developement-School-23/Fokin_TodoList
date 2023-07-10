@@ -11,7 +11,7 @@ import androidx.room.Room
 import android.content.Context
 
 @Database(
-    version = 4,
+    version = 1,
     entities = [
         ImportanceEntity::class,
         TodoEntity::class,

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 
 interface TodoItemsRepository {
     suspend fun todoItems(): Flow<List<TodoItem>>
+    suspend fun unfinishedTodoItems(): Flow<List<TodoItem>>
     suspend fun getTodoItem(id: String): TodoItem?
     suspend fun addTodoItem(todoItem: TodoItem)
     suspend fun updateTodoItem(todoItem: TodoItem)

@@ -69,6 +69,7 @@ class TodoListFragment : Fragment() {
             binding.swipeToRefresh.isRefreshing = false
         }
         binding.floatingActionButton.setOnClickListener { onItemClick(generateRandomItemId(), true) }
+        //binding.
     }
 
     override fun onDestroyView() {
@@ -124,12 +125,20 @@ class TodoListFragment : Fragment() {
         binding.todoItemsList.addItemDecoration(todoItemDecoration)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getTodoItems()
+            viewModel.getUnfinishedTodoItems()
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collectLatest {
                     todoItemsAdapter.setData(it)
                 }
         }
+
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewModel.getTodoItems()
+//                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+//                .collectLatest {
+//                    todoItemsAdapter.setData(it)
+//                }
+//        }
     }
 
     private fun dismissSnackbar() {

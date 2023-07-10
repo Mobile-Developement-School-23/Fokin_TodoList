@@ -16,6 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -67,6 +69,14 @@ class MyRepository @Inject constructor(
     override fun errorItemLiveData() = errorItemLiveData
 
     override suspend fun todoItems(): Flow<List<TodoItem>> = todoItemsFlow.asStateFlow()
+
+    override suspend fun unfinishedTodoItems(): Flow<List<TodoItem>> {
+        return flow {
+            var unfinishedTodoItems = todoItems
+            unfinishedTodoItems = unfinishedTodoItems.filter { !it.isDone } as MutableList<TodoItem>
+            emit(unfinishedTodoItems)
+        }
+    }
 
     override suspend fun getTodoItem(id: String): TodoItem? = todoItems.firstOrNull { it.id == id }
 

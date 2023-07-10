@@ -27,6 +27,8 @@ class TodoListViewModel(
 
     suspend fun getTodoItems() = repository.todoItems()
 
+    suspend fun getUnfinishedTodoItems() = repository.unfinishedTodoItems()
+
     fun errorListLiveData(): LiveData<Boolean> = repository.errorListLiveData()
 
     fun errorItemLiveData(): LiveData<Boolean> = repository.errorItemLiveData()

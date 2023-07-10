@@ -1,17 +1,12 @@
 package com.example.todoapp.data.db
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.example.todoapp.data.db.ImportanceEntity
-import com.example.todoapp.data.db.RevisionDao
-import com.example.todoapp.data.db.RevisionEntity
-import com.example.todoapp.data.db.TodoEntity
-import com.example.todoapp.data.db.TodoItemDao
-import androidx.room.Room
 import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 
 @Database(
-    version = 1,
+    version = 4,
     entities = [
         ImportanceEntity::class,
         TodoEntity::class,
@@ -31,7 +26,7 @@ abstract class TodoListDB : RoomDatabase() {
             return if (database == null) {
                 synchronized(this) {
                     Room.databaseBuilder(context, TodoListDB::class.java, "database.db")
-                        .createFromAsset("todo_database.db")
+                        .createFromAsset(context.getDatabasePath(TodoListDB::class.java.getSimpleName()).getPath())
                         .build()
                 }
             } else {

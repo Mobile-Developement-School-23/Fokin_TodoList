@@ -27,7 +27,7 @@ class ChangeTodoItemViewModel(private val repository: TodoItemsRepository) : Vie
     private val _text = MutableStateFlow("")
     val text = _text.asStateFlow()
 
-    private val _importance = MutableStateFlow(Importance.LOW)
+    private val _importance = MutableStateFlow(Importance.BASIC)
     val importance = _importance.asStateFlow()
 
     private val _deadline = MutableStateFlow(dateToUnix(Date()))

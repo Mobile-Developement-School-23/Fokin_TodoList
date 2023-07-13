@@ -26,7 +26,7 @@ abstract class TodoListDB : RoomDatabase() {
             return if (database == null) {
                 synchronized(this) {
                     Room.databaseBuilder(context, TodoListDB::class.java, "database.db")
-                        .createFromAsset(context.getDatabasePath(TodoListDB::class.java.getSimpleName()).getPath())
+                        .createFromAsset("todo_database.db")
                         .build()
                 }
             } else {

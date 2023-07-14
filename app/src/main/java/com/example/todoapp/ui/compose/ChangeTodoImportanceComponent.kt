@@ -29,15 +29,15 @@ import kotlinx.coroutines.launch
 
 @Preview
 @Composable
-fun PreviewChangeTodoItemImportanceComponent() {
+fun PreviewChangeTodoImportanceComponent() {
     AppTheme {
-        ChangeTodoItemImportanceComponent(importance = Importance.IMPORTANT) {}
+        ChangeTodoImportanceComponent(importance = Importance.IMPORTANT) {}
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChangeTodoItemImportanceComponent(
+fun ChangeTodoImportanceComponent(
     importance: Importance,
     onAction: (ChangeTodoItemActions) -> Unit
 ) {

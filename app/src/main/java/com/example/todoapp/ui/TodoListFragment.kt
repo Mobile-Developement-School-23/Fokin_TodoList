@@ -2,13 +2,10 @@ package com.example.todoapp.ui
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.content.res.Resources
-import android.util.TypedValue
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,10 +16,12 @@ import com.example.todoapp.R
 import com.example.todoapp.databinding.FragmentTodoListBinding
 import com.example.todoapp.di.FragmentScope
 import com.example.todoapp.utils.generateRandomItemId
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @FragmentScope
 class TodoListFragment : Fragment() {
@@ -69,7 +68,7 @@ class TodoListFragment : Fragment() {
             binding.swipeToRefresh.isRefreshing = false
         }
         binding.floatingActionButton.setOnClickListener { onItemClick(generateRandomItemId(), true) }
-        //binding.
+        binding.imageSettings.setOnClickListener {showThemeSelectionBottomSheet()}
     }
 
     override fun onDestroyView() {
@@ -143,5 +142,11 @@ class TodoListFragment : Fragment() {
         val action =
             TodoListFragmentDirections.actionTodoListFragmentToAddTodoItemFragment2(id, isNewItem)
         findNavController().navigate(action)
+    }
+
+    private fun showThemeSelectionBottomSheet() {
+        val bottomSheetDialog = BottomSheetDialog(this.requireContext())
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_theme)
+        bottomSheetDialog.show()
     }
 }

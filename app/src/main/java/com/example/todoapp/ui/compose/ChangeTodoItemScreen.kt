@@ -15,20 +15,28 @@ import com.example.todoapp.data.Importance
 import com.example.todoapp.data.TodoItem
 import androidx.compose.material3.Divider
 import androidx.compose.foundation.layout.fillMaxWidth
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
+import java.util.Date
 
 @Preview
 @Composable
 fun PreviewChangeTodoItemScreenLightTheme() {
     AppTheme(darkTheme = false) {
         ChangeTodoItemScreen(
-            TodoItem(
-                id = "322",
-                text = "Парампампап",
+            uiState = ChangeTodoItemState(
+                text = "Hello",
                 importance = Importance.IMPORTANT,
-                deadline = System.currentTimeMillis()
+                deadline = Date(),
+                isDeadlineSet = true,
+                isNewItem = false
             ),
-            isEditing = true,
-            onAction = {})
+            uiEvent = Channel<ChangeTodoItemEvents>().receiveAsFlow(),
+            uiAction = {},
+            onNavigateUp = {},
+            onSave = {}
+        )
     }
 }
 
@@ -37,29 +45,39 @@ fun PreviewChangeTodoItemScreenLightTheme() {
 fun PreviewChangeTodoItemScreenDarkTheme() {
     AppTheme(darkTheme = true) {
         ChangeTodoItemScreen(
-            TodoItem(
-                id = "322",
-                text = "Парампампап",
+            uiState = ChangeTodoItemState(
+                text = "Hello",
                 importance = Importance.IMPORTANT,
-                deadline = System.currentTimeMillis()
+                deadline = Date(),
+                isDeadlineSet = true,
+                isNewItem = false
             ),
-            isEditing = true,
-            onAction = {})
+            uiEvent = Channel<ChangeTodoItemEvents>().receiveAsFlow(),
+            uiAction = {},
+            onNavigateUp = {},
+            onSave = {}
+        )
     }
 }
 
 @Composable
 fun ChangeTodoItemScreen(
-    todoItem: TodoItem,
-    isEditing: Boolean,
-    onAction: (ChangeTodoItemActions) -> Unit
+    uiState: ChangeTodoItemState,
+    uiEvent: Flow<ChangeTodoItemEvents>,
+    uiAction: (ChangeTodoItemActions) -> Unit,
+    onNavigateUp: () -> Unit,
+    onSave: () -> Unit
 ) {
-    val text = todoItem.text
-    val importance = todoItem.importance
-    val deadline = todoItem.deadline
+    ChangeTodoItemActionHandler(
+        uiEvent = uiEvent,
+        onNavigateUp = onNavigateUp,
+        onSave = onSave
+    )
 
     Scaffold(
-        topBar = { ChangeTodoTopBarComponent(text = text, onAction = onAction) },
+        topBar = {
+            ChangeTodoTopBarComponent(text = uiState.text, onAction = uiAction)
+        },
         containerColor = AppTheme.colors.backPrimary
     ) { paddingValues ->
         LazyColumn(
@@ -68,16 +86,19 @@ fun ChangeTodoItemScreen(
                 .padding(paddingValues)
         ) {
             item {
-                ChangeTodoTextComponent(text = text, onAction = onAction)
-                ChangeTodoImportanceComponent(importance = importance, onAction = onAction)
-                ChangeTodoDivider(PaddingValues(horizontal = 16.dp))
-                ChangeTodoDeadlineComponent(deadline = deadline, onAction = onAction)
-                ChangeTodoDivider(PaddingValues(top = 24.dp, bottom = 8.dp))
-                ChangeTodoDeleteComponent(
-                    enabled = isEditing || todoItem.text.isNotEmpty(),
-                    onAction = onAction
+                ChangeTodoTextComponent(
+                    text = uiState.text,
+                    onAction = uiAction
                 )
-                Spacer(Modifier.size(33.dp))
+                ChangeTodoImportanceComponent(importance = uiState.importance, uiAction = uiAction)
+                ChangeTodoDivider(padding = PaddingValues(horizontal = 16.dp))
+                ChangeTodoItemDeadlineComponent(
+                    deadline = uiState.deadline,
+                    isDateVisible = uiState.isDeadlineSet,
+                    uiAction = uiAction
+                )
+                ChangeTodoDivider(padding = PaddingValues(top = 16.dp, bottom = 8.dp))
+                ChangeTodoDeleteComponent(enabled = uiState.isDeleteEnabled, onAction = uiAction)
             }
         }
     }

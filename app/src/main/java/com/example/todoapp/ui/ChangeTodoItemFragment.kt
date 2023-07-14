@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.collectAsState
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.todoapp.App
@@ -25,6 +26,9 @@ class ChangeTodoItemFragment : Fragment() {
     @Inject
     lateinit var viewModel: ChangeTodoItemViewModel
 
+    private var _binding: FragmentAddTodoItemBinding? = null
+    private val binding get() = _binding!!
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as App)
@@ -37,53 +41,31 @@ class ChangeTodoItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.findTodoItem(args)
-        val view = ComposeView(requireContext())
-        view.apply {
-            setContent {
-                AppTheme {
-                    viewModel.oldTodoItem?.let {
-                        ChangeTodoItemScreen(
-                            todoItem = it,
-                            isEditing = !viewModel.isNewItem,
-                            onAction = ::onTodoEditorAction
-                        )
-                    }
-                }
-            }
-        }
-
-        return view
+        _binding = FragmentAddTodoItemBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    private fun onTodoEditorAction(action: ChangeTodoItemActions) {
-        when (action) {
-            ChangeTodoItemActions.Close -> {
-                findNavController().navigateUp()
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-            ChangeTodoItemActions.Delete -> {
-                viewModel.removeTodoItem()
-                findNavController().navigateUp()
-                //findNavController().navigate(R.id.action_todoEditor_to_todoList)
-            }
-
-            ChangeTodoItemActions.Save -> {
-                viewModel.saveTodoItem()
-                //findNavController().navigate(R.id.action_todoEditor_to_todoList)
-            }
-
-            is ChangeTodoItemActions.UpdateDeadline -> {
-                action.deadline?.let { viewModel.updateDeadline(it) }
-            }
-
-            is ChangeTodoItemActions.UpdateImportance -> {
-                viewModel.updateImportance(action.importance)
-            }
-
-            is ChangeTodoItemActions.UpdateText -> {
-                viewModel.updateText(action.text)
+        viewModel.init(args)
+        binding.composeChangeTodoItem.setContent {
+            AppTheme {
+                ChangeTodoItemScreen(
+                    uiState = viewModel.uiState.collectAsState().value,
+                    uiEvent = viewModel.uiEvent,
+                    uiAction = viewModel::onUiAction,
+                    onNavigateUp = { findNavController().navigateUp() },
+                    onSave = { findNavController().navigateUp() }
+                )
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
 }

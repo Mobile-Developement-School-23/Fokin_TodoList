@@ -1,10 +1,12 @@
 package com.example.todoapp.ui.compose
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -13,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
@@ -33,16 +36,21 @@ fun ChangeTodoDeleteComponent(
     enabled: Boolean,
     onAction: (ChangeTodoItemActions) -> Unit
 ) {
+    val deleteButtonColor by animateColorAsState(
+        targetValue = if (enabled) AppTheme.colors.colorRed else AppTheme.colors.labelDisable,
+        label = "delete_button_color_animation"
+    )
+
     TextButton(
         onClick = { onAction(ChangeTodoItemActions.Delete) },
         enabled = enabled,
         contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
         colors = ButtonDefaults.textButtonColors(
-            contentColor = AppTheme.colors.colorRed,
-            disabledContentColor = AppTheme.colors.labelDisable
+            contentColor = deleteButtonColor,
+            disabledContentColor = deleteButtonColor
         ),
         shape = RectangleShape,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().pulsateClick()
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -54,4 +62,7 @@ fun ChangeTodoDeleteComponent(
         }
     }
 }
+
+
+
 

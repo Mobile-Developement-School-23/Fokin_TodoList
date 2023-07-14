@@ -46,6 +46,8 @@ fun importanceToString(importance: Importance): String {
 
 fun dateToUnix(date: Date) = date.time / 1000
 
+fun unixToDate(date: Long) = Date(date * 1000)
+
 fun getImportanceId(importance: Importance): Int {
     return when (importance) {
         Importance.IMPORTANT -> 3
@@ -85,3 +87,6 @@ val Number.toPx
         this.toFloat(),
         Resources.getSystem().displayMetrics
     )
+
+fun formatDateToDatePattern(date: Date): String =
+    SimpleDateFormat("d MMMM yyyy", Locale.getDefault()).format(date)

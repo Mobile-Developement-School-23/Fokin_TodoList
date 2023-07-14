@@ -12,6 +12,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +39,7 @@ fun ChangeTodoTopBarComponent(
     TopAppBar(
         navigationIcon = {
             IconButton(
-                onClick = { onAction(ChangeTodoItemActions.Close) },
+                onClick = { onAction(ChangeTodoItemActions.NavigateUp) },
                 enabled = true,
                 colors = IconButtonDefaults.iconButtonColors(
                     contentColor = AppTheme.colors.labelPrimary
@@ -64,7 +65,8 @@ fun ChangeTodoTopBarComponent(
                     containerColor = Color.Transparent,
                     disabledContentColor = AppTheme.colors.labelDisable,
                     disabledContainerColor = Color.Transparent,
-                )
+                ),
+                modifier = Modifier.pulsateClick()
             ) {
                 Text(
                     text = stringResource(id = R.string.save_button).uppercase(Locale.getDefault()),

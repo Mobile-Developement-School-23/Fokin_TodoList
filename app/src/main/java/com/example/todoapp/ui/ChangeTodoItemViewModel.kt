@@ -17,9 +17,9 @@ import java.util.Date
 
 @FragmentScope
 class ChangeTodoItemViewModel(private val repository: TodoItemsRepository) : ViewModel() {
-    private var oldTodoItem: TodoItem? = null
+    var oldTodoItem: TodoItem? = null
     private lateinit var id: String
-    private var isNewItem: Boolean = true
+    var isNewItem: Boolean = true
 
     private val _navigation = Channel<ChangeTodoItemNavigations>()
     val navigation = _navigation.receiveAsFlow()

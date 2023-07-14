@@ -1,4 +1,4 @@
-package com.example.todoapp.ui
+package com.example.todoapp.ui.compose
 
 import android.content.Context
 import android.os.Bundle
@@ -15,9 +15,6 @@ import com.example.todoapp.ui.ChangeTodoItemViewModel
 import javax.inject.Inject
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.fragment.findNavController
-import com.example.todoapp.ui.compose.AppTheme
-import com.example.todoapp.ui.compose.ChangeTodoItemActions
-import com.example.todoapp.ui.compose.ChangeTodoItemScreen
 
 @FragmentScope
 class ChangeTodoItemFragment : Fragment() {
@@ -30,7 +27,7 @@ class ChangeTodoItemFragment : Fragment() {
         (requireActivity().application as App)
             .appComponent
             .addTodoItemFragmentComponent()
-            .inject(this)
+            //.inject(this)
     }
 
     override fun onCreateView(
@@ -64,7 +61,6 @@ class ChangeTodoItemFragment : Fragment() {
 
             ChangeTodoItemActions.Delete -> {
                 viewModel.removeTodoItem()
-                findNavController().navigateUp()
                 //findNavController().navigate(R.id.action_todoEditor_to_todoList)
             }
 

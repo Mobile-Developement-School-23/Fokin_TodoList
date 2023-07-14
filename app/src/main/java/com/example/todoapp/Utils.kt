@@ -23,6 +23,11 @@ const val DAY = 86_400_000
 const val HOUR = 3_600_000
 const val MINUTE = 60_000
 const val SHAR_PREF_THEME = "shared_preference_theme"
+const val CHANNEL_ID = "my channel"
+const val CHANNEL_NAME = "Notification channel"
+const val INTENT_ID_KEY = "id"
+const val INTENT_ID_TITLE_KEY = "title"
+const val INTENT_ID_IMPORTANCE_KEY = "importance"
 fun generateRandomItemId(): String =
     SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault()).format(Date())
 

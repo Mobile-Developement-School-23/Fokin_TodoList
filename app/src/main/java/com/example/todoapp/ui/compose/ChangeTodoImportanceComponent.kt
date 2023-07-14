@@ -27,6 +27,14 @@ import androidx.compose.ui.unit.dp
 import com.example.todoapp.R
 import kotlinx.coroutines.launch
 
+@Preview
+@Composable
+fun PreviewChangeTodoItemImportanceComponent() {
+    AppTheme {
+        ChangeTodoItemImportanceComponent(importance = Importance.IMPORTANT) {}
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChangeTodoItemImportanceComponent(
@@ -138,10 +146,3 @@ fun PriorityItem(text: String, color: Color, onClick: () -> Unit) {
 }
 
 
-@Preview
-@Composable
-fun PreviewChangeTodoItemImportanceComponent() {
-    AppTheme {
-        ChangeTodoItemImportanceComponent(importance = Importance.IMPORTANT) {}
-    }
-}

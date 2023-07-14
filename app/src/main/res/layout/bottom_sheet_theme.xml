@@ -3,29 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="?color_gray"
     android:padding="16dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Выберите тему" />
+        android:textColor="?attr/label_secondary"
+        style="@style/TextAppearance.AppCompat.H2"
+        android:text="@string/choose_theme" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Светлая"
+        android:text="@string/light"
+        android:textColor="?attr/label_primary"
         android:onClick="setLightTheme" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Темная"
+        android:text="@string/dark"
+        android:textColor="?attr/label_primary"
         android:onClick="setDarkTheme" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Системная"
+        android:text="@string/system"
+        android:textColor="?attr/label_primary"
         android:onClick="setSystemTheme" />
 
 </LinearLayout>

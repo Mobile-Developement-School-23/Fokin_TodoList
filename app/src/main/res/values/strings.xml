@@ -18,4 +18,8 @@
     <string name="load_error">Отсутствует подключение к интернету</string>
     <string name="reload">Перезагрузить</string>
     <string name="item_error">Возникла ошибка при модификации данных</string>
+    <string name="choose_theme">Выберите тему</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Темная</string>
+    <string name="system">Системная</string>
 </resources>

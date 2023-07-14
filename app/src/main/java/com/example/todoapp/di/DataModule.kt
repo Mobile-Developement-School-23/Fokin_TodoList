@@ -4,6 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.todoapp.data.MyRepository
 import com.example.todoapp.data.TodoItemsRepository
 import com.example.todoapp.data.db.RevisionDao
@@ -34,6 +35,12 @@ interface DataModule {
         @Provides
         fun provideDatabase(context: Context): TodoListDB {
             return TodoListDB.getDatabaseInstance(context)
+        }
+
+        @AppScope
+        @Provides
+        fun provideSharedPreferences(context: Context): SharedPreferences {
+            return context.getSharedPreferences("TABLE", Context.MODE_PRIVATE)
         }
     }
 }

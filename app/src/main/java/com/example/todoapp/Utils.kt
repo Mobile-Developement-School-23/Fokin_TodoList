@@ -1,5 +1,6 @@
 package com.example.todoapp.utils
 
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.util.TypedValue
 import com.example.todoapp.data.network.TodoItemFromServer
@@ -17,6 +18,7 @@ const val CONNECT_TIMEOUT = 120L
 const val READ_TIMEOUT = 120L
 const val WRITE_TIMEOUT = 90L
 const val REPEAT_INTERVAL = 8L
+const val MS_IN_S = 1000
 const val RETRY_COUNT = 3
 const val TODO_ITEM_ADAPTER_PREVIEW_TYPE = 0
 const val DAY = 86_400_000
@@ -28,6 +30,7 @@ const val CHANNEL_NAME = "Notification channel"
 const val INTENT_ID_KEY = "id"
 const val INTENT_ID_TITLE_KEY = "title"
 const val INTENT_ID_IMPORTANCE_KEY = "importance"
+const val NOTIFICATION_PERMISSION_KEY = "notification_permission"
 fun generateRandomItemId(): String =
     SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault()).format(Date())
 
@@ -50,7 +53,7 @@ fun importanceToString(importance: Importance): String {
     }
 }
 
-fun dateToUnix(date: Date) = date.time / 1000
+fun dateToUnix(date: Date) = date.time / MS_IN_S
 
 fun unixToDate(date: Long) = Date(date * 1000)
 
@@ -96,3 +99,9 @@ val Number.toPx
 
 fun formatDateToDatePattern(date: Date): String =
     SimpleDateFormat("d MMMM yyyy", Locale.getDefault()).format(date)
+
+fun saveNotificationsPermission(pref: SharedPreferences, permission: Boolean) {
+    pref.edit()
+        .putBoolean(NOTIFICATION_PERMISSION_KEY, permission)
+        .apply()
+}

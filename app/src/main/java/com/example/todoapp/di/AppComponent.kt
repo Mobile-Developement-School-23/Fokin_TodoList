@@ -7,6 +7,7 @@ import com.example.todoapp.App
 import com.example.todoapp.data.network.AccessibleNetworkWorker
 import com.example.todoapp.data.network.DataCheckWorker
 import com.example.todoapp.data.network.InaccessibleNetworkWorker
+import com.example.todoapp.ui.MainActivity
 
 @AppScope
 @Component(modules = [
@@ -22,10 +23,11 @@ interface AppComponent {
     }
 
     fun todoListFragmentComponent(): TodoListComponent
-    fun addTodoItemFragmentComponent(): ChangeTodoItemComponent
+    fun changeTodoItemFragmentComponentFactory(): ChangeTodoItemComponent.Factory
 
     fun inject(todoApp: App)
     fun inject(worker: DataCheckWorker)
     fun inject(worker: AccessibleNetworkWorker)
     fun inject(worker: InaccessibleNetworkWorker)
+    fun inject(mainActivity: MainActivity)
 }

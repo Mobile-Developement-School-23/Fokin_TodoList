@@ -23,4 +23,5 @@
     <string name="dark">Темная</string>
     <string name="system">Системная</string>
     <string name="importance">Важность: </string>
+    <string name="no_notifications">Приложение не дало разрешение на уведомления</string>
 </resources>

@@ -20,37 +20,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.todoapp.R
 
-@Composable
-fun ChangeTodoItemDeleteComponent(
-    enabled: Boolean,
-    onAction: (TodoEditorAction) -> Unit
-) {
-    TextButton(
-        onClick = { onAction(TodoEditorAction.Delete) },
-        enabled = enabled,
-        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
-        colors = ButtonDefaults.textButtonColors(
-            contentColor = AppTheme.colors.colorRed,
-            disabledContentColor = AppTheme.colors.labelDisable
-        ),
-        shape = RectangleShape,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Icon(imageVector = Icons.Default.Delete, contentDescription = null)
-            Spacer(modifier = Modifier.size(12.dp))
-            Text(text = stringResource(id = R.string.trash), style = AppTheme.typography.body)
-        }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewChangeTodoItemComponent() {
-    AppTheme {
-        ChangeTodoItemDeleteComponent(enabled = true, onAction = {})
-    }
-}
+//@Composable
+//fun ChangeTodoItemDeleteComponent(
+//    enabled: Boolean,
+//    onAction: (TodoEditorAction) -> Unit
+//) {
+//    TextButton(
+//        onClick = { onAction(TodoEditorAction.Delete) },
+//        enabled = enabled,
+//        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
+//        colors = ButtonDefaults.textButtonColors(
+//            contentColor = AppTheme.colors.colorRed,
+//            disabledContentColor = AppTheme.colors.labelDisable
+//        ),
+//        shape = RectangleShape,
+//        modifier = Modifier.fillMaxWidth()
+//    ) {
+//        Row(
+//            modifier = Modifier.fillMaxWidth(),
+//            horizontalArrangement = Arrangement.Start
+//        ) {
+//            Icon(imageVector = Icons.Default.Delete, contentDescription = null)
+//            Spacer(modifier = Modifier.size(12.dp))
+//            Text(text = stringResource(id = R.string.trash), style = AppTheme.typography.body)
+//        }
+//    }
+//}
+//
+//@Preview
+//@Composable
+//fun PreviewChangeTodoItemComponent() {
+//    AppTheme {
+//        ChangeTodoItemDeleteComponent(enabled = true, onAction = {})
+//    }
+//}

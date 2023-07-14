@@ -10,7 +10,14 @@
         android:label="TodoListFragment" >
         <action
             android:id="@+id/action_todoListFragment_to_addTodoItemFragment2"
-            app:destination="@id/addTodoItemFragment" />
+            app:destination="@id/addTodoItemFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+
+            app:enterAnim="@anim/slide_in_left"
+
+
+            />
     </fragment>
     <fragment
         android:id="@+id/addTodoItemFragment"

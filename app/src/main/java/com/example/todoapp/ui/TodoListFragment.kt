@@ -131,14 +131,6 @@ class TodoListFragment : Fragment() {
                     todoItemsAdapter.setData(it)
                 }
         }
-
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            viewModel.getTodoItems()
-//                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-//                .collectLatest {
-//                    todoItemsAdapter.setData(it)
-//                }
-//        }
     }
 
     private fun dismissSnackbar() {

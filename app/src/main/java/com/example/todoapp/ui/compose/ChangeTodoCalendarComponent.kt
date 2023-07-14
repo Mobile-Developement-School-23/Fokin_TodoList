@@ -23,7 +23,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.example.todoapp.R
 
 @Composable
-fun ChangeTodoCalendarComponent(
+fun TimeDialogHa(
     title: String = stringResource(id = R.string.choose_time),
     onCancel: () -> Unit,
     onConfirm: () -> Unit,

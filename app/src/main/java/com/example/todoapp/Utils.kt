@@ -19,6 +19,9 @@ const val WRITE_TIMEOUT = 90L
 const val REPEAT_INTERVAL = 8L
 const val RETRY_COUNT = 3
 const val TODO_ITEM_ADAPTER_PREVIEW_TYPE = 0
+const val DAY = 86_400_000
+const val HOUR = 3_600_000
+const val MINUTE = 60_000
 fun generateRandomItemId(): String =
     SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.getDefault()).format(Date())
 
